@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NoTrace - Protect your privacy with real-time tracker detection, alerts, and risk scoring.">
+  <title>NoTrace – Privacy Protection</title>
+
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+    <header>
+      <div class="logo" aria-label="NoTrace Logo">🛡️ NoTrace</div>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="tracker.html">Tracker Detection</a></li>
+          <li><a href="analyze.html">Analyze & Alert</a></li>
+          <li><a href="score.html">Privacy Score</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- =========================
+         MAIN CONTENT WRAPPER
+         (Added for proper footer layout)
+    ========================= -->
+    <main>
+
+      <!-- HERO SECTION -->
+      <section class="hero">
+        <h1>NoTrace</h1>
+        <h2>Your Shield Against Trackers & Intrusive Ads</h2>
+        <p class="tagline">
+          Protect your privacy with real-time tracker blocking. <br />
+          Stay secure from cookies, ads, and digital fingerprints.
+        </p>
+
+        <div class="scan-controls">
+          <button id="start-scan-btn" class="btn-primary" aria-pressed="false">🚀 Start Scan</button>
+          <button id="stop-scan-btn" class="btn-primary" style="display:none;" aria-pressed="false">🛑 Stop Scan</button>
+        </div>
+      </section>
+
+      <!-- FEATURES -->
+      <section class="features" aria-label="Core Features">
+        <div class="card">
+          <h3>🔍 Tracker Detection</h3>
+          <p>
+            Check permissions and detect trackers, cookies, and fingerprinting scripts in real-time.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>⚠️ Analyze & Alert</h3>
+          <p>
+            Get instant alerts on unknown trackers with detailed risks and control options.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>📊 Privacy Score</h3>
+          <p>
+            Generate a risk score (0–100) for each tab with a clear breakdown of threats.
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Toast Container -->
+    <div id="notrace-toast-container" aria-live="polite"></div>
+     <!-- ✅ FOOTER SHOULD BE HERE -->
+    <footer>
+      <p>© <span id="notrace-year"></span> NoTrace – Your Privacy, Our Mission</p>
+    </footer>
+
+  </div>
+
+ 
+
+  <!-- JS -->
+  <script src="js/common-ui.js" defer></script>
+  <script src="js/notrace.js" defer></script>
+
+</body>
+</html>

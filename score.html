@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoTrace – Privacy Score</title>
+  <meta name="description" content="NoTrace - Get your real-time privacy score and detect risky trackers easily." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .score-wrapper { max-width: 980px; margin: 0 auto; padding: 90px 28px 60px; }
+    .score-page-title { text-align: center; font-size: 2.1rem; font-weight: 700; color: #e8f4f5; letter-spacing: -0.5px; margin-bottom: 28px; }
+    .overall-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(45,212,191,0.2); border-radius: 16px; padding: 28px 32px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .overall-left { flex: 1; min-width: 240px; }
+    .overall-title { display: flex; align-items: center; gap: 10px; font-size: 1.15rem; font-weight: 700; color: #e8f4f5; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .overall-title .shield-icon { width: 28px; height: 28px; background: linear-gradient(135deg, #3b82f6, #06b6d4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .check-list li { display: flex; align-items: center; gap: 12px; font-size: 0.97rem; color: #c8dfe3; }
+    .check-list li::before { content: '✓'; color: #2dd4bf; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+    .gauge-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .gauge-svg-wrap { position: relative; width: 190px; height: 190px; }
+    .gauge-label-below { text-align: center; margin-top: -10px; }
+    .gauge-label-below .gauge-title { font-size: 0.85rem; color: #94b8bf; font-weight: 600; letter-spacing: 0.3px; }
+    .gauge-label-below .gauge-number { font-size: 2rem; font-weight: 700; color: #fbbf24; line-height: 1.1; }
+    .tables-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: rgba(255,255,255,0.07); border: 1px solid rgba(45,212,191,0.18); border-radius: 16px; overflow: hidden; }
+    .score-table { width: 100%; border-collapse: collapse; }
+    .score-table thead th { padding: 14px 20px; text-align: left; font-size: 0.92rem; font-weight: 700; color: #94b8bf; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .score-table tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+    .score-table tbody tr:last-child { border-bottom: none; }
+    .score-table tbody tr:hover { background: rgba(255,255,255,0.04); }
+    .score-table td { padding: 13px 20px; font-size: 0.9rem; color: #c8dfe3; vertical-align: middle; }
+    .score-table td:last-child { text-align: right; }
+    .tables-grid .score-table:first-child { border-right: 1px solid rgba(255,255,255,0.08); }
+    .score-pill { display: inline-block; padding: 4px 14px; border-radius: 6px; font-weight: 700; font-size: 0.88rem; color: #fff; min-width: 44px; text-align: center; }
+    .pill-red    { background: #dc2626; }
+    .pill-orange { background: #ea580c; }
+    .pill-amber  { background: #d97706; }
+    .pill-yellow { background: #a16207; }
+    .pill-green  { background: #16a34a; }
+    @media (max-width: 700px) {
+      .overall-card { flex-direction: column; align-items: flex-start; }
+      .tables-grid  { grid-template-columns: 1fr; }
+      .score-table:first-child { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .score-page-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" title="NoTrace Home" aria-label="NoTrace Logo">🛡️ NoTrace</div>
+    <nav aria-label="Main Navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tracker.html">Tracker Detection</a></li>
+        <li><a href="analyze.html">Analyze &amp; Alert</a></li>
+        <li><a href="score.html" class="active" aria-current="page">Privacy Score</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="score-wrapper">
+      <h1 class="score-page-title">Privacy Risk Score Analysis</h1>
+
+      <div class="overall-card">
+        <div class="overall-left">
+          <div class="overall-title">
+            <div class="shield-icon">🛡️</div>
+            Overall Analysis
+          </div>
+          <ul class="check-list">
+            <li>Number of trackers</li>
+            <li>Type of trackers (ad, analytics, social)</li>
+            <li>HTTPS usage</li>
+            <li>Fingerprinting presence</li>
+            <li>Cookie and storage behavior</li>
+          </ul>
+        </div>
+
+        <div class="gauge-wrap">
+          <div class="gauge-svg-wrap">
+            <svg id="gaugeSvg" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" width="190" height="160">
+              <defs>
+                <clipPath id="shieldClip">
+                  <path d="M100 8 L172 36 L172 100 Q172 148 100 168 Q28 148 28 100 L28 36 Z"/>
+                </clipPath>
+                <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%"   stop-color="#22c55e"/>
+                  <stop offset="30%"  stop-color="#eab308"/>
+                  <stop offset="60%"  stop-color="#f97316"/>
+                  <stop offset="100%" stop-color="#ef4444"/>
+                </linearGradient>
+                <radialGradient id="shieldBg" cx="50%" cy="40%" r="65%">
+                  <stop offset="0%"   stop-color="#1e4d6b"/>
+                  <stop offset="100%" stop-color="#0d2a3d"/>
+                </radialGradient>
+              </defs>
+
+              <path d="M100 8 L172 36 L172 100 Q172 148 100 168 Q28 148 28 100 L28 36 Z"
+                    fill="url(#shieldBg)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+
+              <path id="arcTrack"
+                d="M 38 118 A 66 66 0 0 1 162 118"
+                fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="14"
+                stroke-linecap="round"/>
+
+              <!-- ✅ FIX: single id="arcProgress" (was duplicate id="arcFill" + id="arcProgress") -->
+              <path id="arcProgress"
+                d="M 38 118 A 66 66 0 0 1 162 118"
+                fill="none" stroke="url(#arcGrad)" stroke-width="14"
+                stroke-linecap="round"
+                stroke-dasharray="207"
+                stroke-dashoffset="207"/>
+
+              <g stroke="rgba(255,255,255,0.5)" stroke-width="1.2">
+                <line x1="38" y1="118" x2="44" y2="107" transform="rotate(-90 100 118)"/>
+                <line x1="38" y1="118" x2="44" y2="107" transform="rotate(-54 100 118)"/>
+                <line x1="38" y1="118" x2="44" y2="107" transform="rotate(-18 100 118)"/>
+                <line x1="38" y1="118" x2="44" y2="107" transform="rotate(18 100 118)"/>
+                <line x1="38" y1="118" x2="44" y2="107" transform="rotate(54 100 118)"/>
+                <line x1="38" y1="118" x2="44" y2="107" transform="rotate(90 100 118)"/>
+              </g>
+
+              <g font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle" font-family="Manrope,sans-serif">
+                <text x="34"  y="124">0</text>
+                <text x="46"  y="82">20</text>
+                <text x="83"  y="54">60</text>
+                <text x="120" y="54">80</text>
+                <text x="158" y="82">100</text>
+              </g>
+
+              <g id="needle" transform="rotate(-90, 100, 118)">
+                <line x1="100" y1="118" x2="100" y2="62"
+                      stroke="#e2e8f0" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="100" cy="118" r="5" fill="#2dd4bf"/>
+                <circle cx="100" cy="118" r="2.5" fill="#0f172a"/>
+              </g>
+
+              <circle cx="100" cy="118" r="4" fill="#2dd4bf" opacity="0.6"/>
+            </svg>
+          </div>
+          <div class="gauge-label-below">
+            <div class="gauge-title">Privacy Score</div>
+            <div class="gauge-number" id="gaugeNumber">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tables-grid">
+        <table class="score-table" id="table1">
+          <thead><tr><th>Site</th><th>Privacy Score</th></tr></thead>
+          <tbody id="tableBody1"></tbody>
+        </table>
+        <table class="score-table" id="table2">
+          <thead><tr><th>Site</th><th>Privacy Score</th></tr></thead>
+          <tbody id="tableBody2"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div id="notrace-toast-container" aria-live="polite"></div>
+
+  <footer>
+    <p>© <span id="notrace-year"></span> NoTrace – Your Privacy, Our Mission</p>
+  </footer>
+
+  <script src="js/common-ui.js" defer></script>
+  <script src="js/notrace.js" defer></script>
+  <script src="js/score.js" defer></script>
+</body>
+</html>

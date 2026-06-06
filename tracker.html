@@ -1,0 +1,119 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoTrace – Tracker Detection</title>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- SEO & Theme -->
+  <meta name="description" content="NoTrace - Tracker detection, permission monitoring & privacy insights." />
+  <meta name="theme-color" content="#0f172a" />
+</head>
+<body>
+  <!-- =========================
+       HEADER
+  ========================= -->
+  <header class="site-header">
+    <a href="index.html" class="logo" title="NoTrace Home" aria-label="NoTrace Logo">
+      🛡️ <span>NoTrace</span>
+    </a>
+    <nav aria-label="Main Navigation">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tracker.html" class="active" aria-current="page">Tracker Detection</a></li>
+        <li><a href="analyze.html">Analyze & Alert</a></li>
+        <li><a href="score.html">Privacy Score</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================= -->
+  <main class="page tracker-page">
+    <!-- Page Header -->
+    <section class="page-header" aria-labelledby="pageTitle">
+      <h1 id="pageTitle">🔍 Tracker Detection</h1>
+      <p id="pageDescription" class="muted">
+        View the most recent <strong>permissions, cookies, trackers</strong>, and <strong>storage usage</strong>
+        recorded from your last privacy scan.
+      </p>
+
+      <!-- Last Scan Info -->
+      <div class="scan-row" role="status" aria-live="polite">
+        <span class="muted">Site:</span>
+        <span id="activeOrigin" class="mono"></span>
+        <span class="spacer"></span>
+        <span class="muted">Last updated:</span>
+        <time id="lastUpdated" class="mono" datetime=""></time>
+      </div>
+    </section>
+
+    <!-- =========================
+         SUMMARY BOARD
+    ========================= -->
+    <section class="summary-board features" aria-label="Summary of Privacy Data">
+      <!-- Permissions Card -->
+      <article class="card" id="permissionsCard">
+        <h3>Permission Status</h3>
+        <ul class="status-list">
+          <li>📍 Geolocation: <span id="permGeo" class="status-unknown"></span></li>
+          <li>📷 Camera: <span id="permCam" class="status-unknown"></span></li>
+          <li>🎤 Microphone: <span id="permMic" class="status-unknown"></span></li>
+          <li>🔔 Notifications: <span id="permNotif" class="status-unknown"></span></li>
+        </ul>
+      </article>
+
+      <!-- Storage + Tracker Summary -->
+      <article class="card" id="summaryCard">
+        <h3>Storage & Tracker Summary</h3>
+        <ul class="status-list">
+          <li>
+            💾 Local Storage:
+            <span id="storageUsed" class="status-ok"></span>
+            <span id="storageStatus" class="muted"></span>
+          </li>
+          <li>
+            🍪 Cookies:
+            <span id="cookiesStatus" class="status-unknown"></span>
+          </li>
+          <li>
+            🕵️ Trackers:
+            <span id="trackerStatus" class="status-unknown"></span>
+          </li>
+        </ul>
+        <!-- trackerInfo will only be shown if JS sets a message -->
+        <p id="trackerInfo" class="muted small-text hidden"></p>
+      </article>
+    </section>
+
+    <!-- ========================= 
+         NO SCAN MESSAGE
+    ========================= --> 
+    <div id="noScanMessage" class="no-scan-msg hidden" role="alert">
+      <p>⚠️ No recent scan results found.</p>
+      <p>
+        Please return to the <a href="index.html"><strong>Home Page</strong></a> and click 
+        <strong>Start Scan</strong> to view tracking details here.
+      </p> 
+    </div>
+  </main>
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+  <footer class="site-footer">
+    <p>© <span id="notrace-year"></span> <strong>NoTrace</strong> – Your Privacy, Our Mission</p>
+  </footer>
+
+  <!-- =========================
+       JS INTEGRATION
+  ========================= -->
+  <script src="js/common-ui.js" defer></script>
+  <script src="js/notrace.js" defer></script>
+  <script src="js/tracker.js" defer></script>
+</body>
+</html>

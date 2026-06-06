@@ -44,13 +44,28 @@ A privacy-focused browser extension built using Manifest V3 that helps users det
 
 ## Future Enhancements
 
-- Improved tracker classification
 - Advanced privacy recommendations
 - Enhanced risk score algorithm
 - Chrome Web Store deployment
  ### Multi-Tab Scanning Demo
 
 NoTrace scans and analyzes privacy risks across multiple open browser tabs.
+## Screenshots
+
+### Home Page
+![Home](Home.jpeg)
+
+### Tracker Detection
+![Tracker Detection](Tracker.jpeg)
+
+### Analyze & Alert
+![Analyze Page](Analyze1.jpeg)
+
+### Risk Score Visualization
+![Risk Score](Analyze2.jpeg)
+
+### Privacy Score
+![Privacy Score](Score.jpeg)
 
 ## Author
 
